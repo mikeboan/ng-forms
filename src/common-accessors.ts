@@ -1,7 +1,8 @@
 /* tslint:disable:directive-class-suffix use-host-property-decorator */
 
-import { Directive, forwardRef } from "@angular/core";
+import { Directive, ElementRef, Inject, Optional, Renderer, forwardRef } from "@angular/core";
 import {
+	COMPOSITION_BUFFER_MODE,
 	DefaultValueAccessor as NgDefaultValueAccessor,
 	NG_VALUE_ACCESSOR
 } from "@angular/forms";
@@ -23,5 +24,11 @@ import {
 	}]
 })
 export class DefaultValueAccessor extends NgDefaultValueAccessor {
-
+	constructor(
+		renderer: Renderer,
+		elementRef: ElementRef,
+		@Optional() @Inject(COMPOSITION_BUFFER_MODE) compositionMode: boolean
+	) {
+		super(renderer, elementRef, compositionMode);
+	}
 }
