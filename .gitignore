@@ -1,0 +1,10 @@
+*.log
+.npmrc
+.nyc_output/
+.vscode/
+coverage/
+dist/
+node_modules/
+test-tmp/
+typings/
+aot/
