@@ -9,8 +9,9 @@ let pkgFn = path.resolve(__dirname + path.sep + "../package.json"),
 delete pkg.scripts;
 delete pkg.devDependencies;
 
-pkg.main = "./index.js";
-pkg.es2015 = "./index.js";
+pkg.main = "./bundles/ng-forms.umd.js";
+pkg.es2015 = "./@lchemy/ng-forms.js";
+pkg.module = "./@lchemy/ng-forms.es5.js";
 pkg.types = "ng-forms.d.ts";
 
 let outPkgFn = path.resolve(__dirname + path.sep + "../dist/package.json"),

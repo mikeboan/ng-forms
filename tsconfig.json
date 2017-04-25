@@ -3,8 +3,8 @@
     "noEmit": true,
 
     "target": "es2015",
-    "moduleResolution": "node",
     "module": "es2015",
+    "moduleResolution": "node",
     "lib": [
       "dom",
       "es6"

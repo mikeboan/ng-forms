@@ -1,10 +1,10 @@
 *.log
 .npmrc
 .nyc_output/
-.vscode/
+.DS_Store
 coverage/
 dist/
 node_modules/
 test-tmp/
 typings/
-aot/
+compiled/

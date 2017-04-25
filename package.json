@@ -1,6 +1,6 @@
 {
   "name": "@lchemy/ng-forms",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "description": "",
   "author": "Jesse Zhang (http://jessezhang.me/)",
   "repository": {
@@ -8,10 +8,16 @@
     "url": "https://github.com/lchemy/ng-forms.git"
   },
   "scripts": {
-    "clean": "del-cli ./.nyc_output ./coverage ./dist ./test-tmp ./aot",
-    "build": "ngc -p tsconfig.build.json && rollup -c rollup.config.js && cpy \"**/*.{metadata.json,d.ts}\" \"../dist\" --cwd=aot --parents",
-    "postbuild": "del-cli ./aot && node ./scripts/copy-package && node ./scripts/copy-dist-files",
-    "prebuild": "del-cli ./dist ./aot"
+    "build": "npm run build:compile && npm run build:copy-compiled && npm run build:fesm && npm run build:es5 && npm run build:umd && npm run build:copy-info",
+    "build:compile": "ngc -p tsconfig.build.json",
+    "build:copy-compiled": "cpy \"**/*.{metadata.json,d.ts}\" \"../dist\" --cwd=compiled --parents",
+    "build:copy-info": "cpy README.md .gitignore dist && node ./scripts/copy-package",
+    "build:es5": "rollup -c rollup.es5.config.js",
+    "build:fesm": "rollup -c rollup.fesm.config.js",
+    "build:umd": "rollup -c rollup.umd.config.js",
+    "clean": "del-cli ./.nyc_output ./coverage ./dist ./test-tmp ./compiled",
+    "postbuild": "del-cli ./test-tmp ./compiled",
+    "prebuild": "npm run clean"
   },
   "license": "MIT",
   "dependencies": {
@@ -30,6 +36,7 @@
     "cpy-cli": "^1.0.1",
     "del-cli": "^0.2.1",
     "rollup": "^0.41.6",
+    "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "tslint": "^5.1.0",

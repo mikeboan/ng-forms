@@ -11,8 +11,8 @@ const external = [
 ];
 
 export default {
-	entry: "./aot/index.js",
-	dest: "./dist/index.js",
+	entry: "./compiled/ng-forms.js",
+	dest: "./dist/@lchemy/ng-forms.js",
 	format: "es",
 	sourceMap: true,
 	external: (id) => {
@@ -34,4 +34,4 @@ export default {
 		}
 		console.error(message);
 	}
-}
+};

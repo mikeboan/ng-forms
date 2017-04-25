@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "aot",
+    "outDir": "compiled",
 
     "rootDir": ".",
     "baseUrl": "."
@@ -15,7 +15,7 @@
     "skipMetadataEmit": false,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "index.js",
+    "flatModuleOutFile": "ng-forms.js",
     "flatModuleId": "@lchemy/ng-forms"
   }
 }
