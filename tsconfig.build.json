@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "aot",
+
+    "rootDir": ".",
+    "baseUrl": "."
+  },
+  "files": [
+    "public_api.ts"
+  ],
+  "includes": [],
+  "angularCompilerOptions": {
+    "skipMetadataEmit": false,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "@lchemy/ng-forms"
+  }
+}

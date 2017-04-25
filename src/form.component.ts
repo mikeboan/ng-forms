@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, NgZone, Renderer2, forwardRef } from "@an
 import { Model } from "@lchemy/model";
 import { ValidationResult, Validator } from "@lchemy/model/validation";
 
-import { FormContainer } from "./base";
+import { FormContainer } from "./base/form-container";
 
 // TODO: due to https://github.com/Microsoft/TypeScript/issues/13449
 export const _FormComponentValidator = Validator; // tslint:disable-line

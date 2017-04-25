@@ -3,7 +3,8 @@ import { Model } from "@lchemy/model";
 import { ValidationResult } from "@lchemy/model/validation";
 import { Subscription } from "rxjs";
 
-import { FormContainer, FormField } from "./base";
+import { FormContainer } from "./base/form-container";
+import { FormField } from "./base/form-field";
 import { DEFAULT_FORM_ERROR_MESSAGES, FORM_ERROR_MESSAGES, FormErrorMessage, FormErrorMessages } from "./form-error-messages";
 import { FormErrorContext, FormErrorDirective } from "./form-error.directive";
 
@@ -64,7 +65,7 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 
 
 	constructor(
-		@Inject(FormContainer) private container: FormContainer<M>,
+		private container: FormContainer<M>,
 		@Optional() @Inject(FORM_ERROR_MESSAGES) formErrorMessages: FormErrorMessages,
 		private elemRef: ElementRef,
 		private renderer2: Renderer2

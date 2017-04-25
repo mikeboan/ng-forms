@@ -2,7 +2,8 @@ import { Directive, ElementRef, EventEmitter, Inject, Input, Optional, Output, R
 import { ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Model } from "@lchemy/model";
 
-import { FormContainer, FormField } from "./base";
+import { FormContainer } from "./base/form-container";
+import { FormField } from "./base/form-field";
 
 const NOOP: () => void = () => { /* noop */ };
 
@@ -50,7 +51,7 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 
 	private valueAccessor: ControlValueAccessor | undefined;
 	constructor(
-		@Inject(FormContainer) container: FormContainer<M>,
+		container: FormContainer<M>,
 		@Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[],
 		elemRef: ElementRef,
 		renderer2: Renderer2

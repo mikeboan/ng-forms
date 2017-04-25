@@ -35,6 +35,6 @@ import { FormComponent } from "./form.component";
 		FormGroupComponent
 	]
 })
-export class LcFormsModule {
+export class FormsModule {
 
 }

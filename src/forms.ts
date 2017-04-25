@@ -1,10 +1,11 @@
 export { DefaultValueAccessor } from "./common-accessors";
-export { FormComponent } from "./form.component";
-export { FormErrorContext, FormErrorDirective } from "./form-error.directive";
 export { FORM_ERROR_MESSAGES, FormErrorMessage, FormErrorMessages } from "./form-error-messages";
-export { FormErrorsComponent } from "./form-errors.component";
+export { FormComponent } from "./form.component";
+export { FormContainer } from "./base/form-container";
+export { FormErrorContext, FormErrorDirective } from "./form-error.directive";
 export { FormErrorSummaryComponent } from "./form-error-summary.component";
+export { FormErrorsComponent } from "./form-errors.component";
 export { FormFieldDirective } from "./form-field.directive";
 export { FormFieldLabelDirective } from "./form-field-label.directive";
 export { FormGroupComponent } from "./form-group.component";
-export { LcFormsModule } from "./lc-forms.module";
+export { FormsModule } from "./forms.module";

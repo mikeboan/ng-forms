@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Model } from "@lchemy/model";
 import { Subscription } from "rxjs";
 
-import { FormContainer } from "./base";
+import { FormContainer } from "./base/form-container";
 
 @Component({
 	selector: "lc-form-error-summary",

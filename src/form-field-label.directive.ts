@@ -1,7 +1,8 @@
-import { Directive, DoCheck, ElementRef, Inject, Input, NgZone } from "@angular/core";
+import { Directive, DoCheck, ElementRef, Input, NgZone } from "@angular/core";
 import { Model } from "@lchemy/model";
 
-import { FormContainer, FormLabel } from "./base";
+import { FormContainer } from "./base/form-container";
+import { FormLabel } from "./base/form-label";
 
 @Directive({
 	selector: "[lcFormFieldLabel]:not([lcFormField])"
@@ -18,7 +19,7 @@ export class FormFieldLabelDirective<M extends Model> extends FormLabel<M> imple
 
 
 	constructor(
-		@Inject(FormContainer) container: FormContainer<M>,
+		container: FormContainer<M>,
 		private elemRef: ElementRef,
 		private ngZone: NgZone
 	) {
