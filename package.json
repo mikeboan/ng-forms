@@ -17,6 +17,7 @@
     "build:umd": "rollup -c rollup.umd.config.js",
     "clean": "del-cli ./.nyc_output ./coverage ./dist ./docs ./test-tmp ./compiled",
     "docs": "compodoc -p ./tsconfig.json -d docs -n '@lchemy/ng-forms'",
+    "lint": "tslint -c ./tslint.json -p ./tsconfig.json -t stylish",
     "postbuild": "del-cli ./test-tmp ./compiled",
     "prebuild": "npm run clean",
     "predocs": "del-cli ./docs",

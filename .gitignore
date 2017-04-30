@@ -1,11 +1,8 @@
 *.log
 .npmrc
-.nyc_output/
 .DS_Store
 coverage/
-dist/
-node_modules/
-test-tmp/
-typings/
 compiled/
+dist/
 docs/
+node_modules/
