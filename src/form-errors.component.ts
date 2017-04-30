@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 
 import { FormContainer } from "./base/form-container";
 import { FormField } from "./base/form-field";
+import { BemFormClass, FORM_CLASSES, FormClass, FormClasses, OoFormClass } from "./form-classes";
 import { DEFAULT_FORM_ERROR_MESSAGES, FORM_ERROR_MESSAGES, FormErrorMessage, FormErrorMessages } from "./form-error-messages";
 import { FormErrorContext, FormErrorDirective } from "./form-error.directive";
 
@@ -21,11 +22,26 @@ export interface FormErrorTemplateEnvelope {
 }
 export type FormErrorEnvelope = FormErrorStringEnvelope | FormErrorTemplateEnvelope;
 
+export interface FormErrorsClasses {
+	errors?: string;
+	error?: string;
+	state: {
+		noField: string,
+		untouched: string,
+		touched: string,
+		pristine: string,
+		dirty: string,
+		valid: string,
+		invalid: string,
+		validating: string
+	};
+}
+
 @Component({
 	selector: "lc-form-errors",
 	template: `
 		<ng-template ngFor let-envelope [ngForOf]="errorEnvelopes">
-			<span [ngSwitch]="envelope.type">
+			<span [ngClass]="errorClass" [ngSwitch]="envelope.type">
 				<ng-template ngSwitchCase="string">
 					{{ envelope.content }}
 				</ng-template>
@@ -57,6 +73,10 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 
 	errorEnvelopes: FormErrorEnvelope[] = [];
 
+	/**
+	 * @internal
+	 */
+	errorClass: { [key: string]: true } = {};
 
 
 	private field: FormField<M, any> | undefined;
@@ -68,9 +88,50 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 		private container: FormContainer<M>,
 		@Optional() @Inject(FORM_ERROR_MESSAGES) formErrorMessages: FormErrorMessages,
 		private elemRef: ElementRef,
-		private renderer2: Renderer2
+		private renderer2: Renderer2,
+		@Optional() @Inject(FORM_CLASSES) private formClasses: FormClasses
 	) {
 		this.formErrorMessages = Object.assign({}, DEFAULT_FORM_ERROR_MESSAGES, formErrorMessages);
+	}
+
+	private classes: FormErrorsClasses;
+	private initClasses(): void {
+		let formClasses: FormClasses = this.formClasses != null ? this.formClasses : {},
+			errorsClass: FormClass | undefined = formClasses.errors;
+
+		let errorsBase: string | undefined,
+			modifierPrefix: string;
+		if (errorsClass == null) {
+			modifierPrefix = "lc-";
+		} else if (typeof errorsClass === "string") {
+			errorsBase = errorsClass;
+			modifierPrefix = "lc-";
+		} else if (errorsClass.hasOwnProperty("element")) {
+			errorsClass = errorsClass as BemFormClass;
+			errorsBase = errorsClass.element;
+			modifierPrefix = errorsBase + (errorsClass.separator != null ? errorsClass.separator : "--");
+		} else {
+			errorsClass = errorsClass as OoFormClass;
+			errorsBase = errorsClass.object;
+			modifierPrefix = errorsClass.modifierPrefix != null ? errorsClass.modifierPrefix : "lc-";
+		}
+
+		let errorBase: string | undefined = formClasses.error;
+
+		this.classes = {
+			errors: errorsBase,
+			error: errorBase,
+			state: {
+				noField: `${ modifierPrefix }no-field`,
+				untouched: `${ modifierPrefix }untouched`,
+				touched: `${ modifierPrefix }touched`,
+				pristine: `${ modifierPrefix }pristine`,
+				dirty: `${ modifierPrefix }dirty`,
+				valid: `${ modifierPrefix }valid`,
+				invalid: `${ modifierPrefix }invalid`,
+				validating: `${ modifierPrefix }validating`
+			}
+		};
 	}
 
 
@@ -88,8 +149,16 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 			this.updateField();
 		});
 
+		this.initClasses();
+		if (this.classes.errors != null) {
+			this.toggleClass(this.classes.errors, true);
+		}
+		if (this.classes.error != null) {
+			this.errorClass[this.classes.error] = true;
+		}
+
 		this.containerValidatingChangeSubscription = this.container.validatingChange.subscribe((validating) => {
-			this.toggleClass("lc-validating", validating);
+			this.toggleClass(this.classes.state.validating, validating);
 
 			if (!validating) {
 				if (this.name != null && this.container.validationResult != null) {
@@ -97,8 +166,8 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 				}
 
 				let isValid: boolean = this.validationResult == null || this.validationResult.isValid;
-				this.toggleClass("lc-invalid", !isValid);
-				this.toggleClass("lc-valid", isValid);
+				this.toggleClass(this.classes.state.invalid, !isValid);
+				this.toggleClass(this.classes.state.valid, isValid);
 
 				this.updateErrors();
 			}
@@ -146,7 +215,7 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 			this.fieldTouchedChangeSubscription.unsubscribe();
 		}
 
-		this.toggleClass("lc-no-field", this.field == null);
+		this.toggleClass(this.classes.state.noField, this.field == null);
 
 		if (this.field == null) {
 			return;
@@ -154,12 +223,12 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 
 		type StateSubscriber = (test: boolean) => void;
 		let dirtySubscriber: StateSubscriber = (test) => {
-			this.toggleClass("lc-dirty", test);
-			this.toggleClass("lc-pristine", !test);
+			this.toggleClass(this.classes.state.dirty, test);
+			this.toggleClass(this.classes.state.pristine, !test);
 		};
 		let touchedSubscriber: StateSubscriber = (test) => {
-			this.toggleClass("lc-touched", test);
-			this.toggleClass("lc-untouched", !test);
+			this.toggleClass(this.classes.state.touched, test);
+			this.toggleClass(this.classes.state.untouched, !test);
 		};
 		this.fieldDirtyChangeSubscription = this.field.dirtyChange.subscribe(dirtySubscriber);
 		this.fieldTouchedChangeSubscription = this.field.touchedChange.subscribe(touchedSubscriber);

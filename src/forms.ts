@@ -1,11 +1,13 @@
-export { DefaultValueAccessor } from "./common-accessors";
-export { FORM_ERROR_MESSAGES, FormErrorMessage, FormErrorMessages } from "./form-error-messages";
-export { FormComponent } from "./form.component";
 export { FormContainer } from "./base/form-container";
+export { DefaultValueAccessor } from "./common-accessors";
+export { FORM_CLASSES, provideFormClasses } from "./form-classes";
+export { FORM_ERROR_MESSAGES, FormErrorMessage, FormErrorMessages, provideFormErrorMessages } from "./form-error-messages";
 export { FormErrorContext, FormErrorDirective } from "./form-error.directive";
-export { FormErrorSummaryComponent } from "./form-error-summary.component";
 export { FormErrorsComponent } from "./form-errors.component";
 export { FormFieldDirective } from "./form-field.directive";
-export { FormFieldLabelDirective } from "./form-field-label.directive";
 export { FormGroupComponent } from "./form-group.component";
+export { FormLabelDirective } from "./form-label.directive";
+export { FORM_SUMMARY_ERROR_LABELS, provideFormSummaryErrorLabels } from "./form-summary-error-labels";
+export { FormSummaryComponent } from "./form-summary.component";
+export { FormComponent } from "./form.component";
 export { FormsModule } from "./forms.module";

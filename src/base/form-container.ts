@@ -4,7 +4,6 @@ import { ValidationResult, Validator } from "@lchemy/model/validation";
 
 import { FormControl } from "./form-control";
 import { FormField } from "./form-field";
-import { FormLabel } from "./form-label";
 
 export abstract class FormContainer<M extends Model> extends FormControl {
 	abstract model: M;
@@ -229,79 +228,17 @@ export abstract class FormContainer<M extends Model> extends FormControl {
 		return Array.from(this.fields).find((field) => field.path === name);
 	}
 
-
-
-	protected labels: Set<FormLabel<M>> = new Set<FormLabel<M>>();
-	protected labelsMap: Map<string, string> = new Map<string, string>();
-
 	/**
 	 * @internal
 	 */
-	addLabel(label: FormLabel<M>): void {
-		if (this.labels.has(label)) {
-			return;
-		}
-		this.labels.add(label);
-		this.setLabel(label.path, label.label);
-		this.labelsChange.emit();
-	}
-
-	/**
-	 * @internal
-	 */
-	removeLabel(label: FormLabel<M>): void {
-		if (!this.labels.has(label)) {
-			return;
-		}
-		this.unsetLabel(label.path);
-		this.labels.delete(label);
-	}
-
-	/**
-	 * @internal
-	 */
-	setLabel(path: string, label: string): void {
-		this.labelsMap.set(path, label);
-		this.labelsChange.emit();
-	}
-
-	/**
-	 * @internal
-	 */
-	unsetLabel(path: string): void {
-		this.labelsMap.delete(path);
-		this.labelsChange.emit();
-	}
-
-	/**
-	 * @internal
-	 */
-	updateLabelMap(): void {
-		this.labelsMap.clear();
-		this.fields.forEach((field) => {
-			if (field.label != null) {
-				this.labelsMap.set(field.path, field.label);
-			}
-		});
-		this.labels.forEach((label) => {
-			this.labelsMap.set(label.path, label.label);
-		});
-
-		this.labelsChange.emit();
-	}
-
-	/**
-	 * @internal
-	 */
-	getLabel(path: string): string | undefined {
-		return this.labelsMap.get(path);
+	getFields(): Set<FormField<M, any>> {
+		return this.fields;
 	}
 
 
 
 	protected registerControl(): void {
 		super.registerControl();
-		this.updateLabelMap();
 		this.validate();
 	}
 }
@@ -335,27 +272,27 @@ class DebouncedValidationResult {
 			delete this.timeout;
 		}
 
-		this.ngZone.runOutsideAngular(() => {
-			if (duration == null) {
-				this.execute();
-			} else {
-				this.timeout = setTimeout(this.execute.bind(this), duration);
-			}
-		});
+		if (duration == null) {
+			this.execute();
+		} else {
+			this.ngZone.runOutsideAngular(() => {
+				this.timeout = setTimeout(() => {
+					this.ngZone.run(() => {
+						this.execute();
+					});
+				}, duration);
+			});
+		}
 	}
 
 	private executed: boolean = false;
 	private execute(): void {
 		Promise.resolve().then(this.action).then((res) => {
 			this.executed = true;
-			this.ngZone.run(() => {
-				this.resolve(res);
-			});
+			this.resolve(res);
 		}, (err) => {
 			this.executed = true;
-			this.ngZone.run(() => {
-				this.reject(err);
-			});
+			this.reject(err);
 		});
 	}
 }

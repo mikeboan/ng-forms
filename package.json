@@ -1,6 +1,6 @@
 {
   "name": "@lchemy/ng-forms",
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1-alpha.5",
   "description": "",
   "author": "Jesse Zhang (http://jessezhang.me/)",
   "repository": {
@@ -15,9 +15,12 @@
     "build:es5": "rollup -c rollup.es5.config.js",
     "build:fesm": "rollup -c rollup.fesm.config.js",
     "build:umd": "rollup -c rollup.umd.config.js",
-    "clean": "del-cli ./.nyc_output ./coverage ./dist ./test-tmp ./compiled",
+    "clean": "del-cli ./.nyc_output ./coverage ./dist ./docs ./test-tmp ./compiled",
+    "docs": "compodoc -p ./tsconfig.json -d docs -n '@lchemy/ng-forms'",
     "postbuild": "del-cli ./test-tmp ./compiled",
-    "prebuild": "npm run clean"
+    "prebuild": "npm run clean",
+    "predocs": "del-cli ./docs",
+    "test": "karma start"
   },
   "license": "MIT",
   "dependencies": {
@@ -32,14 +35,34 @@
   "devDependencies": {
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@compodoc/compodoc": "^1.0.0-beta.8",
+    "@types/jasmine": "^2.5.47",
+    "@types/node": "^7.0.14",
     "codelyzer": "^3.0.0",
     "cpy-cli": "^1.0.1",
     "del-cli": "^0.2.1",
+    "electron": "^1.6.6",
+    "istanbul-instrumenter-loader": "^2.0.0",
+    "jasmine-core": "^2.6.1",
+    "karma": "^1.6.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-coverage-istanbul-reporter": "^1.2.0",
+    "karma-electron": "^5.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.31",
+    "karma-webpack": "^2.0.3",
+    "reflect-metadata": "^0.1.10",
     "rollup": "^0.41.6",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
+    "ts-loader": "^2.0.3",
     "tslint": "^5.1.0",
-    "typescript": "^2.2.2"
+    "typescript": "^2.2.2",
+    "wallaby-webpack": "0.0.38",
+    "webpack": "^2.4.1"
   }
 }

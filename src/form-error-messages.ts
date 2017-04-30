@@ -1,4 +1,4 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken, ValueProvider } from "@angular/core";
 
 export type FormErrorMessage = string | ((error: any) => string);
 
@@ -6,7 +6,7 @@ export interface FormErrorMessages {
 	[key: string]: FormErrorMessage;
 }
 
-export const FORM_ERROR_MESSAGES: InjectionToken<FormErrorMessages> = new InjectionToken<FormErrorMessages>("LC_FORM_ERROR_MESSAGES");
+export const FORM_ERROR_MESSAGES: InjectionToken<FormErrorMessages> = new InjectionToken<FormErrorMessages>("LCHEMY_NGFORMS_ERROR_MESSAGES");
 
 export const DEFAULT_FORM_ERROR_MESSAGES: FormErrorMessages = {
 	// bounds
@@ -56,3 +56,10 @@ export const DEFAULT_FORM_ERROR_MESSAGES: FormErrorMessages = {
 	isArray: "Value is not valid.",
 	isObject: "Value is not valid."
 };
+
+export function provideFormErrorMessages(errorMessages: FormErrorMessages): ValueProvider {
+	return {
+		provide: FORM_ERROR_MESSAGES,
+		useValue: errorMessages
+	};
+}

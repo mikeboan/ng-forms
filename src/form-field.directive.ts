@@ -3,7 +3,10 @@ import { ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR } from "@
 import { Model } from "@lchemy/model";
 
 import { FormContainer } from "./base/form-container";
+import { FormControlClasses } from "./base/form-control";
 import { FormField } from "./base/form-field";
+import { FORM_CLASSES, FormClasses } from "./form-classes";
+import { formClassToControlClasses } from "./utils/form-class-to-control-classes";
 
 const NOOP: () => void = () => { /* noop */ };
 
@@ -34,11 +37,13 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 		this.path = value;
 	}
 
+
+
 	@Input()
-	get lcFormFieldLabel(): string | undefined {
+	get lcFormLabel(): string | undefined {
 		return this.label;
 	}
-	set lcFormFieldLabel(value: string | undefined) {
+	set lcFormLabel(value: string | undefined) {
 		this.label = value;
 	}
 
@@ -54,10 +59,15 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 		container: FormContainer<M>,
 		@Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[],
 		elemRef: ElementRef,
-		renderer2: Renderer2
+		renderer2: Renderer2,
+		@Optional() @Inject(FORM_CLASSES) private formClasses: FormClasses
 	) {
 		super(container, elemRef, renderer2);
 		this.valueAccessor = selectValueAccessor(valueAccessors);
+	}
+
+	protected getClasses(): FormControlClasses {
+		return formClassToControlClasses(this.formClasses != null ? this.formClasses.field : undefined);
 	}
 
 	private valueChangeSubscription: { unsubscribe(): void };

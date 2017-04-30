@@ -13,14 +13,13 @@ export abstract class FormField<M extends Model, T> extends FormControl implemen
 		if (this._path === value) {
 			return;
 		}
-		this.container.unsetLabel(this._path);
+
 		this._path = value;
-		if (this.label != null) {
-			this.container.setLabel(value, this.label);
-		}
 		this.updatePath();
 	}
 	private _path: string;
+
+
 
 	get label(): string | undefined {
 		return this._label;
@@ -30,11 +29,15 @@ export abstract class FormField<M extends Model, T> extends FormControl implemen
 			return;
 		}
 		this._label = value;
-		if (value != null) {
-			this.container.setLabel(this.path, value);
-		}
+		this.container.labelsChange.emit();
 	}
 	private _label: string | undefined;
+
+
+
+	get elementRef(): ElementRef {
+		return this.elemRef;
+	}
 
 
 

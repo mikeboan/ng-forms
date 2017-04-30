@@ -2,12 +2,12 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
 import { DefaultValueAccessor } from "./common-accessors";
-import { FormErrorSummaryComponent } from "./form-error-summary.component";
 import { FormErrorDirective } from "./form-error.directive";
 import { FormErrorsComponent } from "./form-errors.component";
-import { FormFieldLabelDirective } from "./form-field-label.directive";
 import { FormFieldDirective } from "./form-field.directive";
 import { FormGroupComponent } from "./form-group.component";
+import { FormLabelDirective } from "./form-label.directive";
+import { FormSummaryComponent } from "./form-summary.component";
 import { FormComponent } from "./form.component";
 
 @NgModule({
@@ -18,21 +18,21 @@ import { FormComponent } from "./form.component";
 		DefaultValueAccessor,
 		FormComponent,
 		FormErrorDirective,
-		FormErrorSummaryComponent,
 		FormErrorsComponent,
 		FormFieldDirective,
-		FormFieldLabelDirective,
-		FormGroupComponent
+		FormGroupComponent,
+		FormLabelDirective,
+		FormSummaryComponent
 	],
 	exports: [
 		DefaultValueAccessor,
 		FormComponent,
 		FormErrorDirective,
-		FormErrorSummaryComponent,
 		FormErrorsComponent,
 		FormFieldDirective,
-		FormFieldLabelDirective,
-		FormGroupComponent
+		FormGroupComponent,
+		FormLabelDirective,
+		FormSummaryComponent
 	]
 })
 export class FormsModule {

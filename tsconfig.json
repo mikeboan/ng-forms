@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "noEmit": true,
-
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
@@ -22,11 +20,17 @@
     "inlineSourceMap": true,
     "strictNullChecks": true,
 
-    "rootDir": "src",
-    "baseUrl": "src"
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@lchemy/ng-forms/*": [
+        "./src/*"
+      ]
+    }
   },
   "includes": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "test/**/*.ts"
   ],
   "exclude": [
     "node_modules"

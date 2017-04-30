@@ -4,6 +4,19 @@ import { Observable, Subscription } from "rxjs";
 
 import { FormContainer } from "./form-container";
 
+export interface FormControlClasses {
+	base?: string;
+	state: {
+		untouched: string,
+		touched: string,
+		pristine: string,
+		dirty: string,
+		valid: string,
+		invalid: string,
+		validating: string
+	};
+}
+
 export abstract class FormControl implements OnChanges, OnDestroy {
 	validationResult: ValidationResult | undefined;
 
@@ -69,14 +82,15 @@ export abstract class FormControl implements OnChanges, OnDestroy {
 	stateChange: EventEmitter<string> = new EventEmitter<string>();
 
 
-
 	constructor(
 		protected container: FormContainer<any> | undefined,
-		private elemRef: ElementRef,
+		protected elemRef: ElementRef,
 		private renderer2: Renderer2
 	) {
 
 	}
+
+	protected abstract getClasses(): FormControlClasses;
 
 
 
@@ -160,20 +174,25 @@ export abstract class FormControl implements OnChanges, OnDestroy {
 			this.stateChange.emit(state);
 		});
 
+		let classes: FormControlClasses = this.getClasses();
+		if (classes.base != null) {
+			this.toggleClass(classes.base, true);
+		}
+
 		type StateSubscriber = (test: boolean) => void;
 		let dirtySubscriber: StateSubscriber = (test) => {
-			this.toggleClass("lc-dirty", test);
-			this.toggleClass("lc-pristine", !test);
+			this.toggleClass(classes.state.dirty, test);
+			this.toggleClass(classes.state.pristine, !test);
 		};
 		let touchedSubscriber: StateSubscriber = (test) => {
-			this.toggleClass("lc-touched", test);
-			this.toggleClass("lc-untouched", !test);
+			this.toggleClass(classes.state.touched, test);
+			this.toggleClass(classes.state.untouched, !test);
 		};
 		let invalidSubscriber: StateSubscriber = (test) => {
-			this.toggleClass("lc-invalid", test);
-			this.toggleClass("lc-valid", !test);
+			this.toggleClass(classes.state.invalid, test);
+			this.toggleClass(classes.state.valid, !test);
 		};
-		let validatingSubscriber: StateSubscriber = (test) => this.toggleClass("lc-validating", test);
+		let validatingSubscriber: StateSubscriber = (test) => this.toggleClass(classes.state.validating, test);
 
 		this.classSubscriptions = [
 			this.dirtyChange.subscribe(dirtySubscriber),

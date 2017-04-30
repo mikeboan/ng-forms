@@ -1,11 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
-    "outDir": "compiled",
-
-    "rootDir": ".",
-    "baseUrl": "."
+    "outDir": "compiled"
   },
   "files": [
     "public_api.ts"
