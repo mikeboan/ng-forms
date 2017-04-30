@@ -31,9 +31,7 @@ describe("FormGroupComponent", () => {
 		});
 
 		TestBed.compileComponents();
-	});
 
-	beforeEach(() => {
 		fixture = TestBed.createComponent(FormWithGroupsTestComponent);
 		fixtureComponent = fixture.componentInstance;
 

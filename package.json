@@ -1,6 +1,6 @@
 {
   "name": "@lchemy/ng-forms",
-  "version": "0.0.1-alpha.5",
+  "version": "0.0.1",
   "description": "",
   "author": "Jesse Zhang (http://jessezhang.me/)",
   "repository": {
@@ -17,9 +17,9 @@
     "build:umd": "rollup -c rollup.umd.config.js",
     "clean": "del-cli ./.nyc_output ./coverage ./dist ./docs ./test-tmp ./compiled",
     "docs": "compodoc -p ./tsconfig.json -d docs -n '@lchemy/ng-forms'",
-    "lint": "tslint -c ./tslint.json -p ./tsconfig.json -t stylish",
+    "lint": "tslint -c ./tslint.json -p ./tsconfig.json -t stylish --type-check",
     "postbuild": "del-cli ./test-tmp ./compiled",
-    "prebuild": "npm run clean",
+    "prebuild": "npm run clean && npm run lint && npm run test",
     "predocs": "del-cli ./docs",
     "test": "karma start"
   },

@@ -94,6 +94,7 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 		this.formErrorMessages = Object.assign({}, DEFAULT_FORM_ERROR_MESSAGES, formErrorMessages);
 	}
 
+	// TODO: extract this to somewhere else
 	private classes: FormErrorsClasses;
 	private initClasses(): void {
 		let formClasses: FormClasses = this.formClasses != null ? this.formClasses : {},

@@ -26,9 +26,7 @@ describe("FormComponent", () => {
 		});
 
 		TestBed.compileComponents();
-	});
 
-	beforeEach(() => {
 		fixture = TestBed.createComponent(FormTestComponent);
 		fixtureComponent = fixture.componentInstance;
 

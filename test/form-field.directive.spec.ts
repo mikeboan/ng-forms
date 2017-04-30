@@ -30,9 +30,7 @@ describe("FormFieldDirective", () => {
 		});
 
 		TestBed.compileComponents();
-	});
 
-	beforeEach(() => {
 		fixture = TestBed.createComponent(FormWithFieldsTestComponent);
 		fixtureComponent = fixture.componentInstance;
 
