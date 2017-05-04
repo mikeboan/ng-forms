@@ -152,12 +152,12 @@ export class FormSummaryComponent<M extends Model> implements OnInit, OnDestroy 
 	ngOnInit(): void {
 		this.initClasses();
 
-		this.formFieldsChangeSubscription = this.form.fieldsChange.subscribe(() => {
+		this.formFieldsChangeSubscription = this.form.fieldsChange.debounceTime(0).subscribe(() => {
 			this.fields = Array.from(this.form.getFields());
 			this.updateErrors();
 		});
 
-		this.formLabelsChangeSubscription = this.form.labelsChange.subscribe(() => {
+		this.formLabelsChangeSubscription = this.form.labelsChange.debounceTime(0).subscribe(() => {
 			this.updateErrors();
 		});
 

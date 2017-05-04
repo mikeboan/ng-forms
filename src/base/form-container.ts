@@ -1,6 +1,7 @@
 import { ElementRef, EventEmitter, NgZone, Renderer2 } from "@angular/core";
 import { Model } from "@lchemy/model";
 import { ValidationResult, Validator } from "@lchemy/model/validation";
+import { Subscription } from "rxjs";
 
 import { FormControl } from "./form-control";
 import { FormField } from "./form-field";
@@ -237,9 +238,22 @@ export abstract class FormContainer<M extends Model> extends FormControl {
 
 
 
+	private fieldsChangeSubscription?: Subscription;
 	protected registerControl(): void {
 		super.registerControl();
 		this.validate();
+
+		this.fieldsChangeSubscription = this.fieldsChange.debounceTime(0).subscribe(() => {
+			this.validate();
+		});
+	}
+
+	protected unregisterControl(): void {
+		super.unregisterControl();
+
+		if (this.fieldsChangeSubscription != null) {
+			this.fieldsChangeSubscription.unsubscribe();
+		}
 	}
 }
 

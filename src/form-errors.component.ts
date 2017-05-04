@@ -262,7 +262,7 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 					type: "template",
 					content: this.templateErrorsMap[key].templateRef,
 					context: result!.errors![key]
-				} as FormErrorTemplateEnvelope;
+				};
 			}
 
 			if (this.formErrorMessages[key] != null) {
@@ -272,7 +272,7 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 					error: key,
 					type: "string",
 					content
-				} as FormErrorStringEnvelope;
+				};
 			}
 
 			// TODO: allow config to define default
@@ -280,7 +280,7 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 				error: key,
 				type: "string",
 				content: "Value is not valid."
-			} as FormErrorStringEnvelope;
+			};
 		}).filter((message) => {
 			return message != null;
 		}).sort((a, b) => {
