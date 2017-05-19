@@ -79,10 +79,14 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 		}
 
 		// initialize view from model
-		this.valueAccessor.writeValue(this.getModelValue());
+		let viewValue: T | undefined = this.getModelValue();
+		this.valueAccessor.writeValue(viewValue);
 
 		// update value accessor on value change
-		this.valueChangeSubscription = this.valueChange.subscribe((value) => {
+		this.valueChangeSubscription = this.valueChange.filter((value) => {
+			return value !== viewValue;
+		}).subscribe((value) => {
+			viewValue = value;
 			this.valueAccessor!.writeValue(value);
 		});
 
@@ -91,6 +95,7 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 			if (this.getModelValue() === value) {
 				return;
 			}
+			viewValue = value;
 			this.setModelValue(value);
 			this.markAsDirty();
 		});
