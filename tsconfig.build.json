@@ -8,6 +8,7 @@
   ],
   "includes": [],
   "angularCompilerOptions": {
+    "genDir": "compiled",
     "skipMetadataEmit": false,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,

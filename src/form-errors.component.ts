@@ -91,7 +91,10 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 		private renderer2: Renderer2,
 		@Optional() @Inject(FORM_CLASSES) private formClasses: FormClasses
 	) {
-		this.formErrorMessages = Object.assign({}, DEFAULT_FORM_ERROR_MESSAGES, formErrorMessages);
+		this.formErrorMessages = {
+			...DEFAULT_FORM_ERROR_MESSAGES,
+			...formErrorMessages
+		};
 	}
 
 	// TODO: extract this to somewhere else

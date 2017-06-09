@@ -89,6 +89,7 @@
       "allow-pascal-case",
       "allow-leading-underscore"
     ],
+    "prefer-conditional-expression": false,
     "prefer-const": false,
     "space-before-function-paren": [
       true,

@@ -74,7 +74,11 @@ export class FormSummaryComponent<M extends Model> implements OnInit, OnDestroy 
 			return;
 		}
 		this._customErrorLabels = value;
-		this._errorLabels = Object.assign({}, DEFAULT_FORM_SUMMARY_ERROR_LABELS, this.globalErrorLabels, value);
+		this._errorLabels = {
+			...DEFAULT_FORM_SUMMARY_ERROR_LABELS,
+			...this.globalErrorLabels,
+			...value
+		};
 	}
 	private _errorLabels: FormSummaryErrorLabels;
 	private _customErrorLabels: FormSummaryErrorLabels;
@@ -122,7 +126,10 @@ export class FormSummaryComponent<M extends Model> implements OnInit, OnDestroy 
 		@Optional() @Inject(FORM_SUMMARY_ERROR_LABELS) private globalErrorLabels: FormSummaryErrorLabels,
 		@Optional() @Inject(FORM_CLASSES) private formClasses: FormClasses
 	) {
-		this.errorLabels = Object.assign({}, DEFAULT_FORM_SUMMARY_ERROR_LABELS, globalErrorLabels);
+		this.errorLabels = {
+			...DEFAULT_FORM_SUMMARY_ERROR_LABELS,
+			...globalErrorLabels
+		};
 	}
 
 	private initClasses(): void {
