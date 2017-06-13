@@ -64,14 +64,14 @@ export abstract class FormField<M extends Model, T> extends FormControl implemen
 
 
 
-	protected prevValue: T | undefined;
+	protected modelValue: T | undefined;
 	ngDoCheck(): void {
 		let currentValue: T | undefined = this.getModelValue();
-		if (currentValue === this.prevValue) {
+		if (currentValue === this.modelValue) {
 			return;
 		}
 
-		this.prevValue = currentValue;
+		this.modelValue = currentValue;
 		this.valueChange.emit(currentValue);
 		this.container.validate();
 	}
@@ -139,7 +139,6 @@ export abstract class FormField<M extends Model, T> extends FormControl implemen
 				return;
 			}
 			memo[part] = value;
-			this.markAsDirty();
 		};
 
 		this.updateValidationResult();

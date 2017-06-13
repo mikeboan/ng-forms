@@ -92,10 +92,13 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 
 		// register view changes to update model
 		this.valueAccessor.registerOnChange((value: T | undefined) => {
+			viewValue = value;
+
 			if (this.getModelValue() === value) {
+				this.container.validate();
 				return;
 			}
-			viewValue = value;
+
 			this.setModelValue(value);
 			this.markAsDirty();
 		});
