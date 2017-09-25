@@ -1,7 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { FormsModule as NgFormsModule } from "@angular/forms";
 
-import { DefaultValueAccessor } from "./common-accessors";
+import { BUILTIN_ACCESSORS, DefaultValueAccessor } from "./common-accessors";
 import { FormErrorDirective } from "./form-error.directive";
 import { FormErrorsComponent } from "./form-errors.component";
 import { FormFieldDirective } from "./form-field.directive";
@@ -12,10 +13,13 @@ import { FormComponent } from "./form.component";
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
+		NgFormsModule
 	],
 	declarations: [
+		...BUILTIN_ACCESSORS,
 		DefaultValueAccessor,
+
 		FormComponent,
 		FormErrorDirective,
 		FormErrorsComponent,
@@ -25,7 +29,9 @@ import { FormComponent } from "./form.component";
 		FormSummaryComponent
 	],
 	exports: [
+		...BUILTIN_ACCESSORS,
 		DefaultValueAccessor,
+
 		FormComponent,
 		FormErrorDirective,
 		FormErrorsComponent,

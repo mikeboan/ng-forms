@@ -1,10 +1,11 @@
 import { Directive, ElementRef, EventEmitter, Inject, Input, Optional, Output, Renderer2, Self } from "@angular/core";
-import { ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Model } from "@lchemy/model";
 
 import { FormContainer } from "./base/form-container";
 import { FormControlClasses } from "./base/form-control";
 import { FormField } from "./base/form-field";
+import { selectValueAccessor } from "./common-accessors";
 import { FORM_CLASSES, FormClasses } from "./form-classes";
 import { formClassToControlClasses } from "./utils/form-class-to-control-classes";
 
@@ -124,20 +125,4 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 			this.valueChangeSubscription.unsubscribe();
 		}
 	}
-}
-
-function selectValueAccessor(valueAccessors: ControlValueAccessor[] | undefined): ControlValueAccessor | undefined {
-	if (valueAccessors == null) {
-		return undefined;
-	}
-
-	let customAccessor: ControlValueAccessor | undefined = valueAccessors.find((accessor) => !(accessor instanceof DefaultValueAccessor));
-	if (customAccessor != null) {
-		return customAccessor;
-	}
-
-	// TODO: add built-in accessor logic?
-
-	// default accessor
-	return valueAccessors.find((accessor) => accessor instanceof DefaultValueAccessor);
 }
