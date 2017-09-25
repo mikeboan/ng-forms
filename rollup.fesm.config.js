@@ -12,7 +12,7 @@ const external = [
 
 export default {
 	entry: "./compiled/ng-forms.js",
-	dest: "./dist/@lchemy/ng-forms.js",
+	dest: "./dist/lchemy/ng-forms.js",
 	format: "es",
 	sourceMap: true,
 	external: (id) => {

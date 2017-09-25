@@ -11,8 +11,8 @@ const external = [
 ];
 
 export default {
-	entry: "./dist/@lchemy/ng-forms.js",
-	dest: "./dist/@lchemy/ng-forms.es5.js",
+	entry: "./dist/lchemy/ng-forms.js",
+	dest: "./dist/lchemy/ng-forms.es5.js",
 	format: "es",
 	sourceMap: true,
 	external: (id) => {
@@ -36,4 +36,4 @@ export default {
 	}
 };
 
-// buble ./dist/@lchemy/ng-forms.js -o ./dist/@lchemy/ng-forms.es5.js --sourcemap --no modules
+// buble ./dist/lchemy/ng-forms.js -o ./dist/lchemy/ng-forms.es5.js --sourcemap --no modules

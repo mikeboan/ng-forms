@@ -10,7 +10,7 @@ const external = [
 ];
 
 export default {
-	entry: "./dist/@lchemy/ng-forms.es5.js",
+	entry: "./dist/lchemy/ng-forms.es5.js",
 	dest: "./dist/bundles/ng-forms.umd.js",
 	format: "umd",
 	exports: "named",
