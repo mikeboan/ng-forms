@@ -77,7 +77,7 @@ function _isAndroid(): boolean {
 
 // original from: https://github.com/angular/angular/blob/1cfa79ca4e21788e0323baf544704ee7ef7d63ea/packages/forms/src/directives/number_value_accessor.ts
 @Directive({
-	selector: "input[type=number][lcFormField",
+	selector: "input[type=number][lcFormField]",
 	host: {
 		"(change)": "onChange($event.target.value)",
 		"(input)": "onChange($event.target.value)",
