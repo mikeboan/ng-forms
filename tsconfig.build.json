@@ -9,6 +9,7 @@
   "includes": [],
   "angularCompilerOptions": {
     "genDir": "compiled",
+    "annotationsAs": "decorators",
     "skipMetadataEmit": false,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
