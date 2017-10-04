@@ -36,9 +36,9 @@ export default {
 		sourcemaps()
 	],
 	onwarn: (message) => {
-		// if (/but never used/.test(message)) {
-		// 	return;
-		// }
+		if (message.code === "UNUSED_EXTERNAL_IMPORT" || message.code === "THIS_IS_UNDEFINED") {
+			return;
+		}
 		console.error(message);
 	}
 }
