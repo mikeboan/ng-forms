@@ -47,7 +47,7 @@ export interface FormErrorsClasses {
 				</ng-template>
 				<ng-template ngSwitchCase="template">
 					<ng-template [ngTemplateOutlet]="envelope.content"
-						[ngOutletContext]="{ $implicit: envelope.context, error: envelope.context }">
+						[ngTemplateOutletContext]="{ $implicit: envelope.context, error: envelope.context }">
 					</ng-template>
 				</ng-template>
 			</span>

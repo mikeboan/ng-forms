@@ -101,7 +101,7 @@ export class NumberValueAccessor implements ControlValueAccessor {
 		this._renderer.setProperty(this._elementRef.nativeElement, "value", normalizedValue);
 	}
 
-	registerOnChange(fn: (_: number|null) => void): void {
+	registerOnChange(fn: (_: number | null) => void): void {
 		this.onChange = (value) => { fn(value === "" ? null : parseFloat(value)); };
 	}
 	registerOnTouched(fn: () => void): void { this.onTouched = fn; }
