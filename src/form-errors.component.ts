@@ -153,9 +153,6 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 			this.updateField();
 		});
 
-		this.field = this.container.getField(this.name);
-		this.updateField();
-
 		this.initClasses();
 		if (this.classes.errors != null) {
 			this.toggleClass(this.classes.errors, true);
@@ -179,6 +176,9 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 				this.updateErrors();
 			}
 		});
+
+		this.field = this.container.getField(this.name);
+		this.updateField();
 	}
 
 	private templateErrorsChangesSubscription?: Subscription;
