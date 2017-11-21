@@ -143,7 +143,6 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 	private containerValidatingChangeSubscription?: Subscription;
 	private containerFieldsChangeSubscription?: Subscription;
 	ngOnInit(): void {
-		this.field = this.container.getField(this.name);
 		this.containerFieldsChangeSubscription = this.container.fieldsChange.map(() => {
 			if (this.name == null) {
 				return;
@@ -153,6 +152,9 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 			this.field = field;
 			this.updateField();
 		});
+
+		this.field = this.container.getField(this.name);
+		this.updateField();
 
 		this.initClasses();
 		if (this.classes.errors != null) {
