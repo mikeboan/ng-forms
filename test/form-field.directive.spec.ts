@@ -104,6 +104,7 @@ describe("FormFieldDirective", () => {
 @Component({
 	template: `
 		<lc-form [model]="user" [validator]="validator">
+			<input type="text" name="id" lcFormField #idInput #idInputField="lcFormField" />
 			<input type="text" name="name" lcFormField #nameInput #nameInputField="lcFormField" />
 			<input type="text" name="email" lcFormField #emailInput #emailInputField="lcFormField" />
 		</lc-form>
@@ -112,6 +113,9 @@ describe("FormFieldDirective", () => {
 class FormWithFieldsTestComponent {
 	user: User = new User();
 	validator: Validator<User> = userValidator;
+
+	@ViewChild("idInput") idInput: ElementRef;
+	@ViewChild("idInputField") idInputField: FormFieldDirective<User, string>;
 
 	@ViewChild("nameInput") nameInput: ElementRef;
 	@ViewChild("nameInputField") nameInputField: FormFieldDirective<User, string>;
