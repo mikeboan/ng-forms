@@ -16,7 +16,6 @@ describe("FormFieldDirective", () => {
 		nameInputDirective: FormFieldDirective<User, string>,
 		nameInputElem: HTMLInputElement,
 		emailInputDirective: FormFieldDirective<User, string>,
-		emailInputElem: HTMLInputElement,
 		advance: (n?: number) => void;
 
 	beforeEach(() => {
@@ -40,7 +39,6 @@ describe("FormFieldDirective", () => {
 		nameInputElem = fixtureComponent.nameInput.nativeElement;
 		nameInputDirective = fixtureComponent.nameInputField;
 
-		emailInputElem = fixtureComponent.emailInput.nativeElement;
 		emailInputDirective = fixtureComponent.emailInputField;
 
 		advance = (n) => {

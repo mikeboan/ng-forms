@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, 
 import { Model } from "@lchemy/model";
 import { ValidationResult } from "@lchemy/model/validation";
 import { Subscription } from "rxjs";
+import { debounceTime } from "rxjs/operators";
 
 import { FormContainer } from "./base/form-container";
 import { FormField } from "./base/form-field";
@@ -159,12 +160,12 @@ export class FormSummaryComponent<M extends Model> implements OnInit, OnDestroy 
 	ngOnInit(): void {
 		this.initClasses();
 
-		this.formFieldsChangeSubscription = this.form.fieldsChange.debounceTime(0).subscribe(() => {
+		this.formFieldsChangeSubscription = this.form.fieldsChange.pipe(debounceTime(0)).subscribe(() => {
 			this.fields = Array.from(this.form.getFields());
 			this.updateErrors();
 		});
 
-		this.formLabelsChangeSubscription = this.form.labelsChange.debounceTime(0).subscribe(() => {
+		this.formLabelsChangeSubscription = this.form.labelsChange.pipe(debounceTime(0)).subscribe(() => {
 			this.updateErrors();
 		});
 

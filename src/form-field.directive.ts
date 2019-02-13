@@ -1,6 +1,7 @@
 import { Directive, ElementRef, EventEmitter, Inject, Input, Optional, Output, Renderer2, Self } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Model } from "@lchemy/model";
+import { filter } from "rxjs/operators";
 
 import { FormContainer } from "./base/form-container";
 import { FormControlClasses } from "./base/form-control";
@@ -84,9 +85,9 @@ export class FormFieldDirective<M extends Model, T> extends FormField<M, T> {
 		this.valueAccessor.writeValue(viewValue);
 
 		// update value accessor on value change
-		this.valueChangeSubscription = this.valueChange.filter((value) => {
+		this.valueChangeSubscription = this.valueChange.pipe(filter((value) => {
 			return value !== viewValue;
-		}).subscribe((value) => {
+		})).subscribe((value) => {
 			viewValue = value;
 			this.valueAccessor!.writeValue(value);
 		});

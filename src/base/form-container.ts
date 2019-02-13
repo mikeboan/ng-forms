@@ -2,6 +2,7 @@ import { ElementRef, EventEmitter, NgZone, Renderer2 } from "@angular/core";
 import { Model } from "@lchemy/model";
 import { ValidationResult, Validator } from "@lchemy/model/validation";
 import { Subscription } from "rxjs";
+import { debounceTime } from "rxjs/operators";
 
 import { FormControl } from "./form-control";
 import { FormField } from "./form-field";
@@ -243,7 +244,9 @@ export abstract class FormContainer<M extends Model> extends FormControl {
 		super.registerControl();
 		this.validate();
 
-		this.fieldsChangeSubscription = this.fieldsChange.debounceTime(0).subscribe(() => {
+		this.fieldsChangeSubscription = this.fieldsChange.pipe(
+			debounceTime(0)
+		).subscribe(() => {
 			this.validate();
 		});
 	}

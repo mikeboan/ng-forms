@@ -14,10 +14,7 @@ describe("FormGroupComponent", () => {
 		fixtureComponent: FormWithGroupsTestComponent,
 		formComponent: FormComponent<User>,
 		formGroupComponent: FormGroupComponent<User>,
-		nameInputElem: HTMLInputElement,
-		emailInputElem: HTMLInputElement,
 		friendNameInputElem: HTMLInputElement,
-		friendEmailInputElem: HTMLInputElement,
 		advance: (n?: number) => void;
 
 	beforeEach(() => {
@@ -41,11 +38,7 @@ describe("FormGroupComponent", () => {
 		let formGroupDebugElem: DebugElement = fixture.debugElement.query(By.directive(FormGroupComponent));
 		formGroupComponent = formGroupDebugElem.componentInstance;
 
-		nameInputElem = fixtureComponent.nameInput.nativeElement;
-		emailInputElem = fixtureComponent.emailInput.nativeElement;
-
 		friendNameInputElem = fixtureComponent.friendNameInput.nativeElement;
-		friendEmailInputElem = fixtureComponent.friendEmailInput.nativeElement;
 
 		advance = (n) => {
 			fixture.detectChanges();
