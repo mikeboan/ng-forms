@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testin
 import { By } from "@angular/platform-browser";
 
 import { Validator } from "@lchemy/model/validation";
-import { FormGroupComponent } from "@lchemy/ng-forms/form-group.component";
-import { FormComponent } from "@lchemy/ng-forms/form.component";
-import { FormsModule } from "@lchemy/ng-forms/forms.module";
+import { FormGroupComponent } from "../src/form-group.component";
+import { FormComponent } from "../src/form.component";
+import { FormsModule } from "../src/forms.module";
 
 import { User, userValidator } from "./fixtures/user";
 
@@ -14,10 +14,7 @@ describe("FormGroupComponent", () => {
 		fixtureComponent: FormWithGroupsTestComponent,
 		formComponent: FormComponent<User>,
 		formGroupComponent: FormGroupComponent<User>,
-		nameInputElem: HTMLInputElement,
-		emailInputElem: HTMLInputElement,
 		friendNameInputElem: HTMLInputElement,
-		friendEmailInputElem: HTMLInputElement,
 		advance: (n?: number) => void;
 
 	beforeEach(() => {
@@ -41,11 +38,7 @@ describe("FormGroupComponent", () => {
 		let formGroupDebugElem: DebugElement = fixture.debugElement.query(By.directive(FormGroupComponent));
 		formGroupComponent = formGroupDebugElem.componentInstance;
 
-		nameInputElem = fixtureComponent.nameInput.nativeElement;
-		emailInputElem = fixtureComponent.emailInput.nativeElement;
-
 		friendNameInputElem = fixtureComponent.friendNameInput.nativeElement;
-		friendEmailInputElem = fixtureComponent.friendEmailInput.nativeElement;
 
 		advance = (n) => {
 			fixture.detectChanges();

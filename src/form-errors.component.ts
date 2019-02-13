@@ -2,6 +2,7 @@ import { AfterContentInit, Component, ContentChildren, ElementRef, Inject, Input
 import { Model } from "@lchemy/model";
 import { ValidationResult } from "@lchemy/model/validation";
 import { Subscription } from "rxjs";
+import { map } from "rxjs/operators";
 
 import { FormContainer } from "./base/form-container";
 import { FormField } from "./base/form-field";
@@ -143,12 +144,12 @@ export class FormErrorsComponent<M extends Model> implements OnInit, AfterConten
 	private containerValidatingChangeSubscription?: Subscription;
 	private containerFieldsChangeSubscription?: Subscription;
 	ngOnInit(): void {
-		this.containerFieldsChangeSubscription = this.container.fieldsChange.map(() => {
+		this.containerFieldsChangeSubscription = this.container.fieldsChange.pipe(map(() => {
 			if (this.name == null) {
 				return;
 			}
 			return this.container.getField(this.name);
-		}).subscribe((field) => {
+		})).subscribe((field) => {
 			this.field = field;
 			this.updateField();
 		});

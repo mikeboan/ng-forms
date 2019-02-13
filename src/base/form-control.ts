@@ -1,6 +1,7 @@
 import { ElementRef, EventEmitter, OnChanges, OnDestroy, Output, Renderer2 } from "@angular/core";
 import { ValidationResult } from "@lchemy/model/validation";
-import { Observable, Subscription } from "rxjs";
+import { Subscription, concat as observableConcat } from "rxjs";
+import { distinctUntilChanged, map } from "rxjs/operators";
 
 import { FormContainer } from "./form-container";
 
@@ -168,9 +169,12 @@ export abstract class FormControl implements OnChanges, OnDestroy {
 			this.container.addControl(this);
 		}
 
-		this.emitStateChangeSubscription = Observable.concat(this.invalidChange, this.validatingChange).map(() => {
-			return this.state;
-		}).distinctUntilChanged().subscribe((state) => {
+		this.emitStateChangeSubscription = observableConcat(this.invalidChange, this.validatingChange).pipe(
+			map(() => {
+				return this.state;
+			}),
+			distinctUntilChanged()
+		).subscribe((state) => {
 			this.stateChange.emit(state);
 		});
 

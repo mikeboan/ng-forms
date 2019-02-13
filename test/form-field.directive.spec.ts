@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testin
 import { By } from "@angular/platform-browser";
 
 import { Validator } from "@lchemy/model/validation";
-import { FormFieldDirective } from "@lchemy/ng-forms/form-field.directive";
-import { FormComponent } from "@lchemy/ng-forms/form.component";
-import { FormsModule } from "@lchemy/ng-forms/forms.module";
+import { FormFieldDirective } from "../src/form-field.directive";
+import { FormComponent } from "../src/form.component";
+import { FormsModule } from "../src/forms.module";
 
 import { User, userValidator } from "./fixtures/user";
 
@@ -16,7 +16,6 @@ describe("FormFieldDirective", () => {
 		nameInputDirective: FormFieldDirective<User, string>,
 		nameInputElem: HTMLInputElement,
 		emailInputDirective: FormFieldDirective<User, string>,
-		emailInputElem: HTMLInputElement,
 		advance: (n?: number) => void;
 
 	beforeEach(() => {
@@ -40,7 +39,6 @@ describe("FormFieldDirective", () => {
 		nameInputElem = fixtureComponent.nameInput.nativeElement;
 		nameInputDirective = fixtureComponent.nameInputField;
 
-		emailInputElem = fixtureComponent.emailInput.nativeElement;
 		emailInputDirective = fixtureComponent.emailInputField;
 
 		advance = (n) => {

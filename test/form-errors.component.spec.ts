@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testin
 import { By } from "@angular/platform-browser";
 
 import { Validator } from "@lchemy/model/validation";
-import { FormComponent } from "@lchemy/ng-forms/form.component";
-import { FormsModule } from "@lchemy/ng-forms/forms.module";
+import { FormComponent } from "../src/form.component";
+import { FormsModule } from "../src/forms.module";
 
 import { User, userValidator } from "./fixtures/user";
 
@@ -12,7 +12,6 @@ describe("FormComponent", () => {
 	let fixture: ComponentFixture<FormErrorsTestComponent>,
 		fixtureComponent: FormErrorsTestComponent,
 		formComponent: FormComponent<User>,
-		formElem: HTMLElement,
 		nameErrorsElem: HTMLElement,
 		emailErrorsElem: HTMLElement,
 		advance: (n?: number) => void;
@@ -34,7 +33,6 @@ describe("FormComponent", () => {
 
 		let formDebugElem: DebugElement = fixture.debugElement.query(By.directive(FormComponent));
 		formComponent = formDebugElem.componentInstance;
-		formElem = formDebugElem.nativeElement;
 
 		nameErrorsElem = fixture.debugElement.query(By.css("#name-errors")).nativeElement;
 		emailErrorsElem = fixture.debugElement.query(By.css("#email-errors")).nativeElement;
