@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testin
 import { By } from "@angular/platform-browser";
 
 import { Validator } from "@lchemy/model/validation";
-import { FormGroupComponent } from "@lchemy/ng-forms/form-group.component";
-import { FormComponent } from "@lchemy/ng-forms/form.component";
-import { FormsModule } from "@lchemy/ng-forms/forms.module";
+import { FormGroupComponent } from "../src/form-group.component";
+import { FormComponent } from "../src/form.component";
+import { FormsModule } from "../src/forms.module";
 
 import { User, userValidator } from "./fixtures/user";
 
